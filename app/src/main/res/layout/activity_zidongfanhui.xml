@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gaoneng.library.AutoScrollBackLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_zidongfanhui_autoscrollLayout"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    app:show_scroll="true">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_zidongfanhui_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</com.gaoneng.library.AutoScrollBackLayout>
