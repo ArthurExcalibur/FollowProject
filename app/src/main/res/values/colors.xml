@@ -29,4 +29,19 @@
     <color name="color_23">#795548</color>
     <color name="color_24">#9E9E9E</color>
     <color name="color_25">#607D8B</color>
+
+
+    <color name="defaultBgColor">#edeef0</color>
+    <color name="moduleBgColor">#FFFFFF</color>
+    <color name="cardBgColor">#FFFFFF</color>
+
+    <color name="navBgColor">#909491</color>
+    <color name="navSelectedColor">#1185fe</color>
+
+    <color name="titleTextColor">#282828</color>
+    <color name="contentTextColor">#464646</color>
+    <color name="subContentTextColor">#999999</color>
+    
+    <color name="searchBoxBgColor">#e7e7e7</color>
+    <color name="searchHintColor">#a0a0a0</color>
 </resources>

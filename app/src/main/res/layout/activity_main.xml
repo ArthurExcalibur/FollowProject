@@ -1,17 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.excalibur.followproject.activity.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:onClick="click"-->
+        <!--android:text="跳转"/>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/image"-->
+        <!--android:layout_width="90dp"-->
+        <!--android:layout_height="120dp"-->
+        <!--android:layout_marginTop="250dp"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:transitionName="share"-->
+        <!--android:background="@mipmap/renwen1"/>-->
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/novel"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.excalibur.followproject.NovelTextView
+        android:id="@+id/atv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<com.bluejamesbond.text.DocumentView-->
+        <!--xmlns:ext="http://schemas.android.com/apk/res-auto"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--ext:documentView_antialias="true"-->
+        <!--ext:documentView_cacheConfig="auto_quality"-->
+        <!--ext:documentView_hyphen="-"-->
+        <!--ext:documentView_reverse="false"-->
+        <!--ext:documentView_textAlignment="justified"-->
+        <!--ext:documentView_textColor="#f1c40f"-->
+        <!--ext:documentView_textFormat="plain"-->
+        <!--ext:documentView_text="啊沙发哈设计开发阿斯钢金坷垃上过课"-->
+        <!--ext:documentView_textSize="14sp"-->
+        <!--android:id="@+id/blogText"-->
+        <!--ext:documentView_textSubPixel="true"/>-->
+
+    <!--<com.bluejamesbond.text.DocumentView xmlns:ext="http://schemas.android.com/apk/res-auto"-->
+        <!---->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--ext:documentView_antialias="true"-->
+        <!--ext:documentView_cacheConfig="auto_quality"-->
+        <!--ext:documentView_hyphen="-"-->
+        <!--ext:documentView_lineHeightMultiplier="2.0"-->
+        <!--ext:documentView_maxLines="100"-->
+        <!--ext:documentView_offsetX="10dp"-->
+        <!--ext:documentView_offsetY="10dp"-->
+        <!--ext:documentView_insetPadding="10dp"-->
+        <!--ext:documentView_insetPaddingBottom="10dp"-->
+        <!--ext:documentView_insetPaddingLeft="10dp"-->
+        <!--ext:documentView_insetPaddingRight="10dp"-->
+        <!--ext:documentView_insetPaddingTop="10dp"-->
+        <!--ext:documentView_reverse="false"-->
+        <!--ext:documentView_text="啊沙发哈设计开发阿斯钢金坷垃上过课"-->
+        <!--ext:documentView_textAlignment="justified"-->
+        <!--ext:documentView_textColor="@android:color/white"-->
+        <!--ext:documentView_textFormat="plain"-->
+        <!--ext:documentView_textSize="12sp"-->
+        <!--ext:documentView_textStyle="bold|strikeThru|underline"-->
+        <!--ext:documentView_textSubPixel="true"-->
+        <!--ext:documentView_wordSpacingMultiplier="5.0" />-->
+
 </RelativeLayout>

@@ -51,13 +51,14 @@ public class CardStackAdapter extends StackAdapter<Integer> {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 6) {//TODO TEST LARGER ITEM
-            return R.layout.list_card_item_larger_header;
-        } else if (position == 10) {
-            return R.layout.list_card_item_with_no_header;
-        }else {
-            return R.layout.list_card_item;
-        }
+        return R.layout.list_card_item;
+//        if (position == 6) {//TODO TEST LARGER ITEM
+//            return R.layout.list_card_item_larger_header;
+//        } else if (position == 10) {
+//            return R.layout.list_card_item_with_no_header;
+//        }else {
+//            return R.layout.list_card_item;
+//        }
     }
 
     static class ColorItemViewHolder extends CardStackView.ViewHolder {

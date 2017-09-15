@@ -7,7 +7,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.excalibur.followproject"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -30,6 +30,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
 
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
@@ -44,4 +45,14 @@ dependencies {
     compile('com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.1.4')
 
     compile 'com.loopeer.library:cardstack:1.0.2'
+
+    compile 'com.android.support:cardview-v7:25.3.1'
+
+    compile 'com.solid.skin:skinlibrary:2.0.0-beta5'
+
+    compile 'com.github.jokermonn:permissions4m:2.1.1-lib'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.1-processor'
+
+    compile 'com.github.huburt-Hu:NewbieGuide:v1.0.3'
+    compile 'com.github.bluejamesbond:textjustify-android:2.1.6'
 }

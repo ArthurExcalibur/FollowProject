@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="defaultBgColor_night">#13161e</color>
+    <color name="moduleBgColor_night">#1e1e29</color>
+    <color name="cardBgColor_night">#22222e</color>
+
+    <color name="navBgColor_night">#6b707f</color>
+    <color name="navSelectedColor_night">#3a76d0</color>
+
+    <color name="titleTextColor_night">#667995</color>
+    <color name="contentTextColor_night">#8c96b4</color>
+    <color name="subContentTextColor_night">#606476</color>
+
+    <color name="searchBoxBgColor_night">#242431</color>
+    <color name="searchHintColor_night">#606476</color>
+</resources>

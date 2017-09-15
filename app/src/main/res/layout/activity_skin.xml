@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    skin:enable="true"
+    android:background="@color/defaultBgColor">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="change"
+        android:background="@color/moduleBgColor"
+        android:textColor="@color/titleTextColor"
+        skin:enable="true"
+        android:text="切换"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:background="@color/moduleBgColor"
+        skin:enable="true"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp">
+            <View
+                android:layout_width="2dp"
+                android:layout_height="10dp"
+                skin:enable="true"
+                android:layout_gravity="center_vertical"
+                android:background="@color/titleTextColor"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                skin:enable="true"
+                android:textColor="@color/titleTextColor"
+                android:layout_marginLeft="10dp"
+                android:text="New Book"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/skin_image"
+            skin:enable="false"
+            android:background="@mipmap/ic_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
