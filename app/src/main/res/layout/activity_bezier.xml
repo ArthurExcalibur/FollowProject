@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/layout"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text2"
+        android:background="#FFF"
+        android:text="水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:text="水电费哈萨克大姐夫是当红高度规啊啥电焊工十多个啥更好的收到该偶素和威欧特更好玩傻大个和偶是读书电话噶UI啥电焊工"
+        android:layout_width="match_parent"
+        android:background="#FFF"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

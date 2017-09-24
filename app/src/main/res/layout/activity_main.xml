@@ -20,14 +20,9 @@
         <!--android:transitionName="share"-->
         <!--android:background="@mipmap/renwen1"/>-->
 
-    <TextView
-        android:id="@+id/novel"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-    <com.excalibur.followproject.NovelTextView
-        android:id="@+id/atv"
+    <com.excalibur.followproject.view.novel.AutoSplitTextView
+        android:id="@+id/auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
