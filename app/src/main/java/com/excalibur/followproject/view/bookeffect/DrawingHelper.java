@@ -20,7 +20,7 @@ public class DrawingHelper {
 		mHeight = height;
 	}
 	static final int ANIMATE_DURATION = 600;
-	static final int RESET_ANIMATE_DURATION = 200;
+	static final int RESET_ANIMATE_DURATION = 600;
 
 	int mWidth = 0;
     int mHeight = 0;

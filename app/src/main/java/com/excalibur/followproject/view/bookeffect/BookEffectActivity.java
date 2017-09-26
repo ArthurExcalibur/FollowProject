@@ -1,23 +1,24 @@
-
 package com.excalibur.followproject.view.bookeffect;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.FrameLayout.LayoutParams;
 
-public class MainActivity extends Activity {
+public class BookEffectActivity extends AppCompatActivity {
+
     MagicBookView mBookView;
     Button mButton1;
     Button mButton2;
     Button mButton3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        //mBookView = (MagicBookView)findViewById(R.id.bookview);
+        setContentView(com.excalibur.followproject.R.layout.activity_bookeffect_main);
+        mBookView = (MagicBookView)findViewById(com.excalibur.followproject.R.id.magic);
         mButton1 = new Button(this);
         mButton2 = new Button(this);
         mButton3 = new Button(this);

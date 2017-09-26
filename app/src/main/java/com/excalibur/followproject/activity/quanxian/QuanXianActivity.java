@@ -64,7 +64,7 @@ public class QuanXianActivity extends AppCompatActivity {
      * 申请多条权限的方法
      * 1.使用 @PermissionsRequestSync 修饰 Activity 或 Fragment
      * 2.传入两组参数：value 数组：请求码 permission 数组：请求权限
-     * 3.使用 Permissions4M.get(MainActivity.this).requestSync(); 进行同步权限申请
+     * 3.使用 Permissions4M.get(BookEffectActivity.this).requestSync(); 进行同步权限申请
      * Note:同步申请默认强制申请(requestForce(true))，同步申请不支持 @PermissionsNonRationale
      */
     public void requestMutiPermission(){
@@ -111,7 +111,7 @@ public class QuanXianActivity extends AppCompatActivity {
     /**
      * 二次授权时回调，用于解释为何需要此权限，注解中需要传入参数，分为两种情况（同上）
      * Note：注：除上述以外的 dialog，开发者可以自定义其他展示效果，调用权限申请时请使用如下代码，否则会陷入无限调用自定义 Rationale 循环中
-     *      Permissions4M.get(MainActivity.this)
+     *      Permissions4M.get(BookEffectActivity.this)
      *                  // 务必添加下列一行
      *                  .requestOnRationale()
      *                  .requestPermissions(Manifest.permission.RECORD_AUDIO)

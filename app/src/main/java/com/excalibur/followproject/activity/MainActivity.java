@@ -131,9 +131,9 @@ public class MainActivity extends AppCompatActivity {
 //        image.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, AnimActivity.class);
+//                Intent intent = new Intent(BookEffectActivity.this, AnimActivity.class);
 //                if(Build.VERSION.SDK_INT >= 21){
-//                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, image,"share").toBundle());
+//                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(BookEffectActivity.this, image,"share").toBundle());
 //                }else{
 //                    startActivity(intent);
 //                }
