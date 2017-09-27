@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AsyncListAdapter extends RecyclerView.Adapter<AsyncListAdapter.AsyHolder> {
@@ -15,7 +16,7 @@ public class AsyncListAdapter extends RecyclerView.Adapter<AsyncListAdapter.AsyH
 
     public AsyncListAdapter(Activity activity, RecyclerView rv) {
         mContext = activity;
-        mAsyncListCursorUtil = new AsyncListCursorUtil(activity, rv);
+        mAsyncListCursorUtil = new AsyncListCursorUtil(rv);
     }
 
     @Override
@@ -36,13 +37,15 @@ public class AsyncListAdapter extends RecyclerView.Adapter<AsyncListAdapter.AsyH
     }
 
     static class Data {
-        String key;
         String name;
+        String author;
+        String img;
     }
 
     static class AsyHolder extends RecyclerView.ViewHolder {
-        private TextView mTextView1;
-        private TextView mTextView2;
+        ImageView imageView;
+        TextView mTextView1;
+        TextView mTextView2;
 
         AsyHolder(View itemView) {
             super(itemView);
@@ -56,7 +59,7 @@ public class AsyncListAdapter extends RecyclerView.Adapter<AsyncListAdapter.AsyH
                 mTextView2.setText("unknown");
             } else {
                 mTextView1.setText(item.name);
-                mTextView2.setText(item.key);
+                mTextView2.setText(item.author);
             }
         }
     }
