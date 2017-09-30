@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class Book extends DataSupport implements Serializable{
 
+    private int bid;
     private int id;
     private String name;
     private String url;
@@ -29,8 +30,20 @@ public class Book extends DataSupport implements Serializable{
     private long addTime;
     private long lastReadTime;
 
+    public int getBid() {
+        return bid;
+    }
+
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
+
     public void setLeixing(int leixing) {
         this.leixing = leixing;
+    }
+
+    public int getLeixing() {
+        return leixing;
     }
 
     public int getId() {

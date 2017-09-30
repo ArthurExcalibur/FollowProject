@@ -20,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,9 +79,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        setContentView(R.layout.activity_main);
-        autoAdjustTextView = (AutoSplitTextView) findViewById(R.id.auto);
-        handler.sendEmptyMessageDelayed(1,1000);
+        setContentView(R.layout.fra_wode);
+        EditText editText = (EditText) findViewById(R.id.edit);
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Clcked...",Toast.LENGTH_SHORT).show();
+            }
+        });
+//        autoAdjustTextView = (AutoSplitTextView) findViewById(R.id.auto);
+//        handler.sendEmptyMessageDelayed(1,1000);
 
 //        image = (ImageView) findViewById(R.id.image);
 

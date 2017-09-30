@@ -20,8 +20,12 @@
 
         </activity>
 
-        <activity android:name=".activity.touming.TouMingZhuangTaiLanActivity">
-
+        <activity android:name=".activity.touming.TouMingZhuangTaiLanActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".activity.cardstack.CardStackActivity">
@@ -49,10 +53,7 @@
         </activity>
 
         <activity android:name=".view.bookeffect.BookEffectActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 
