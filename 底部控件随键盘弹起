@@ -1,6 +1,6 @@
 <ScrollView
   android:layout_width="fill_parent"            
-  android:layout_height="44dp"  
+  android:layout_height="XXdp"<!-- 给一个固定值 -->  
   android:fillViewport="true"  
   android:scrollbars="vertical">  
   <!-- 底部控件 -->
