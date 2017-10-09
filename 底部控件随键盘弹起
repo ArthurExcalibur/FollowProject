@@ -1,0 +1,11 @@
+<ScrollView
+  android:layout_width="fill_parent"            
+  android:layout_height="44dp"  
+  android:fillViewport="true"  
+  android:scrollbars="vertical">  
+  <!-- 底部控件 -->
+ </ScrollView> 
+ 
+ 
+ #若弹出的软键盘遮挡了部分上移的view，可以在清单文件中给activity设置属性
+  android:windowSoftInputMode="adjustResize"
