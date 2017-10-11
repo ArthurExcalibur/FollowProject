@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ececec">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="拍照选取"/>
+        <Button
+            android:id="@+id/gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="相册选取"/>
+        <Button
+            android:id="@+id/yijian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="一键获取权限"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <!--<com.css.wgb.wengubaoforandroid.view.ContainsEmojiEditText-->
+            <!--android:id="@+id/wentifankui_yijian_et"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="160dp"-->
+            <!--android:background="@null"-->
+            <!--android:textCursorDrawable="@drawable/etcursor_color"-->
+            <!--android:padding="10dp"-->
+            <!--android:textSize="@dimen/text_17_x34"-->
+            <!--android:inputType="textMultiLine"-->
+            <!--android:gravity="top|left"-->
+            <!--android:hint="请写下您的宝贵意见，谢谢！"-->
+            <!--android:textColor="#2d2d2d"-->
+            <!--android:textColorHint="#8e8e8e"-->
+            <!--/>-->
+
+        <!--<GridView-->
+            <!--android:id="@+id/wentifankui_imagepicker_gv"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:numColumns="4"-->
+            <!--android:layout_margin="10dp"-->
+            <!--/>-->
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="联系方式"
+            android:textSize="17sp"
+            android:gravity="center_vertical"
+            android:textColor="#2d2d2d"
+            android:layout_marginLeft="10dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:orientation="vertical"
+        android:background="#fdfdfe"
+        >
+        <EditText
+            android:id="@+id/wentifankui_lianxifangshi_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:hint="QQ/手机号/邮箱"
+            android:textSize="12sp"
+            android:textColor="#2d2d2d"
+            android:textColorHint="#b6b6b6"
+
+            />
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="您的联系方式仅工作人员可见，用于跟您联系以解决问题"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:textColor="#b6b6b6"
+        />
+
+
+</LinearLayout>

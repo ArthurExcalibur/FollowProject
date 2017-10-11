@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.excalibur.followproject">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -22,10 +23,7 @@
 
         <activity android:name=".activity.touming.TouMingZhuangTaiLanActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity android:name=".activity.cardstack.CardStackActivity">
@@ -54,6 +52,16 @@
 
         <activity android:name=".view.bookeffect.BookEffectActivity">
 
+        </activity>
+
+        <activity android:name=".activity.loading.LoadingActivity">
+
+        </activity>
+        <activity android:name=".activity.fankui.FanKuiActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

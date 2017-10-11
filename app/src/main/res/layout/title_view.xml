@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <TextView
+        android:id="@+id/header_title_tv"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="haha"/>
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/header_left_rl"-->
+        <!--style="@style/header_rl">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/header_left_iv"-->
+                <!--style="@style/header_iv"-->
+                <!--/>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/header_left_yuan_dian_iv"-->
+                <!--android:layout_width="@dimen/w_5_x9"-->
+                <!--android:layout_height="@dimen/w_5_x9"-->
+                <!--android:layout_marginLeft="@dimen/w_5_x9"-->
+                <!--android:src="@drawable/main_left_yuan_dian_shape"-->
+                <!--android:visibility="gone"/>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</RelativeLayout>-->
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="5dp"
+        android:background="@mipmap/ic_launcher"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:text="扔掉"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/icon_time"
+        android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:id="@+id/iv_second_right"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="5dp"
+        android:background="@mipmap/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/iv_right"/>
+</RelativeLayout>
