@@ -148,6 +148,7 @@ public class AutoSplitTextView extends FrameLayout{
      * 设置单章内容并且自动切割
      * @param content 章节内容
      * @param title 章节标题
+     * @param isNext 是否切换下一章
      */
     public void setContent(String content,String title,boolean isNext){
         this.content = content;
@@ -197,7 +198,7 @@ public class AutoSplitTextView extends FrameLayout{
 
     /**
      * 切换页面
-     * @param isNext  是否切换上一页
+     * @param isNext  是否切换下一页
      */
     public String changePage(boolean isNext){
         if(isNext){
