@@ -47,11 +47,11 @@ public class Rotate3dAnimation extends Animation {
         final Matrix matrix = t.getMatrix();
 
         camera.save();
-//        if (mReverse) {
-//            camera.translate(0.0f, 0.0f, mDepthZ * interpolatedTime);
-//        } else {
-//            camera.translate(0.0f, 0.0f, mDepthZ * (1.0f - interpolatedTime));
-//        }
+        if (mReverse) {
+            camera.translate(0.0f, 0.0f, mDepthZ * interpolatedTime);
+        } else {
+            camera.translate(0.0f, 0.0f, mDepthZ * (1.0f - interpolatedTime));
+        }
         camera.rotateY(degrees);
         //取得变换后的矩阵
         camera.getMatrix(matrix);

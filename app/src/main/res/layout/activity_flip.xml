@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:background="@color/color_1"
-        android:id="@+id/text"
-        android:textSize="50sp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="1"/>
-
-    <View
-        android:id="@+id/back"
+    <com.excalibur.followproject.view.read.ReadView
+        android:id="@+id/readView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <!--<TextView-->
+        <!--android:background="@color/color_1"-->
+        <!--android:id="@+id/text"-->
+        <!--android:textSize="50sp"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="1"/>-->
+
+    <!--<View-->
+        <!--android:id="@+id/back"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
     <!--<LinearLayout-->
         <!--android:id="@+id/scroll"-->
         <!--android:scrollbars="none"-->

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 无特效翻页 -->
+    <com.excalibur.followproject.view.novel.AutoSplitTextView
+        android:id="@+id/noneAutoSplit"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- 覆盖翻页 -->
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+    <!-- 折叠翻页 -->
+    <com.excalibur.followproject.fanye.flip.FlipViewController
+        android:id="@+id/view_layout_flip"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- 上下翻页 -->
+    <ScrollView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="哈哈哈哈"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <!-- 仿真翻页 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/simulationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.excalibur.followproject.view.novel.AutoSplitTextView
+                android:id="@+id/simulationSplit"
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/simulationLoad"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="加载中..."
+            android:gravity="center"/>
+        <com.excalibur.followproject.fanye.PageWidget
+            android:id="@+id/simulationPageWidget"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -13,5 +13,6 @@
         android:textSize="12sp"
         android:gravity="center_vertical"
         android:lineSpacingMultiplier="1.2"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"/>
 </FrameLayout>

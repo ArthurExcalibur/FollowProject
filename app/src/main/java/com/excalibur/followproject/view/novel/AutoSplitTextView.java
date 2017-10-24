@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,6 +22,7 @@ public class AutoSplitTextView extends FrameLayout{
     private TextView measureTextView;
     private AutoAdjustTextView autoAdjustTextView;
     private float titleViewHeight;
+    private boolean splitContent = true;
 
     public AutoSplitTextView(Context context){
         super(context);
@@ -50,8 +52,8 @@ public class AutoSplitTextView extends FrameLayout{
     //根据页数计算当前页能容纳的最大行数
     private int calContentCount(int pageNumber,int viewHeight,float titleHeight){
         int normalHeight = viewHeight;
-        if(pageNumber != 0){
-            normalHeight += titleHeight;
+        if(pageNumber == 0){
+            normalHeight -= titleHeight;
         }
         int firstH = getLineHeight(0);
         int otherH = getLineHeight(1);
@@ -85,6 +87,9 @@ public class AutoSplitTextView extends FrameLayout{
         int height = measureTextView.getMeasuredHeight() - measureTextView.getPaddingTop() - measureTextView.getPaddingBottom();
         int firstCellCount = calContentCount(0,height,titleViewHeight);//表示第一页最多存储多少行
         int maxCellCount = calContentCount(1,height,titleViewHeight);//表示一页最多存储多少行
+        if(!splitContent){
+            firstCellCount = Integer.MAX_VALUE;
+        }
         int cellCount = 0;//表示当前StringBuilder中存储了多少行
         int lineWidth;
         String[] pages = content.replaceAll("\r","").split("\n");
@@ -98,7 +103,7 @@ public class AutoSplitTextView extends FrameLayout{
                 value = spaceString + value;
                 if(paint.measureText(value) <= width){
                     contentBuilder.append(value);
-                    cellCount++;
+                    //cellCount++;
                 }else{
                     for(int i = 0;i < value.length();i++){
                         char ch = value.charAt(i);
@@ -224,6 +229,34 @@ public class AutoSplitTextView extends FrameLayout{
             }
         }
         return null;
+    }
+
+    public int getCurrentPageNumber(){
+        return currentPageNumber;
+    }
+
+    public void setContent(){
+        if(TextUtils.isEmpty(getContent()))
+            return;
+        autoAdjustTextView.setText(pageList.get(currentPageNumber));
+    }
+
+    public String getContent(){
+        if(pageList == null)
+            return null;
+        if(pageList.size() == 0)
+            return null;
+        if(currentPageNumber < 0 || currentPageNumber >= pageList.size())
+            return null;
+        return pageList.get(currentPageNumber);
+    }
+
+    /**
+     * 设置是否分页
+     * @param split
+     */
+    public void setSplitContent(boolean split){
+        splitContent = split;
     }
 
     private OnContentOverListener listener;
