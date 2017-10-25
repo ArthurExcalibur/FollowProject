@@ -73,6 +73,7 @@ public class AutoSplitTextView extends FrameLayout{
     private int currentPageNumber = 0;
 
     private StringBuilder contentBuilder;
+    private StringBuilder lineBuilder;
     private void autoSplitContent(boolean isNext){
         measureTextView.setText(content);
         if(pageList == null)
@@ -80,7 +81,10 @@ public class AutoSplitTextView extends FrameLayout{
         pageList.clear();
         if(contentBuilder == null)
             contentBuilder = new StringBuilder();
+        if(lineBuilder == null)
+            lineBuilder = new StringBuilder();
         contentBuilder.delete(0,contentBuilder.length());
+        lineBuilder.delete(0,lineBuilder.length());
 
         Paint paint = measureTextView.getPaint();
         int width = measureTextView.getMeasuredWidth() - measureTextView.getPaddingLeft() - measureTextView.getPaddingRight();
@@ -94,6 +98,7 @@ public class AutoSplitTextView extends FrameLayout{
         int lineWidth;
         String[] pages = content.replaceAll("\r","").split("\n");
         for(String value : pages) {
+            lineBuilder.delete(0,lineBuilder.length());
             lineWidth = 0;
             value = clean(value);
             if (!TextUtils.isEmpty(value)) {
@@ -109,11 +114,13 @@ public class AutoSplitTextView extends FrameLayout{
                         char ch = value.charAt(i);
                         lineWidth += paint.measureText(String.valueOf(ch));
                         if(lineWidth <= width){
-                            contentBuilder.append(ch);
+                            lineBuilder.append(ch);
+                            //contentBuilder.append(ch);
                         }else{
+                            contentBuilder.append(fillLineBuilder(width));
+                            contentBuilder.append("\n");
                             i--;
                             lineWidth = 0;
-                            contentBuilder.append("\n");
                             cellCount++;
                             if(cellCount == firstCellCount){//解析出了新的一页
                                 pageList.add(contentBuilder.toString());
@@ -124,6 +131,8 @@ public class AutoSplitTextView extends FrameLayout{
                         }
                     }
                 }
+                if(lineBuilder.length() > 0)
+                    contentBuilder.append(lineBuilder.toString());
                 contentBuilder.append("\n");
                 cellCount++;
 
@@ -147,6 +156,19 @@ public class AutoSplitTextView extends FrameLayout{
         }
         currentPageNumber = isNext ? 0 : pageList.size() - 1;
         autoAdjustTextView.setContent(pageList.get(currentPageNumber));
+    }
+
+    private String fillLineBuilder(int mWidth){
+        Paint paint = measureTextView.getPaint();
+        String line = lineBuilder.toString();
+        lineBuilder.delete(0,lineBuilder.length());
+        float width = paint.measureText(line);
+        int spaceNumber = (int) ((mWidth - width) / paint.measureText(space));
+        for (int i = 0; i < spaceNumber; i++) {
+            int random = (int) (Math.random() * line.length());
+            line = line.substring(0,random) + " " + line.substring(random);
+        }
+        return line;
     }
 
     /**

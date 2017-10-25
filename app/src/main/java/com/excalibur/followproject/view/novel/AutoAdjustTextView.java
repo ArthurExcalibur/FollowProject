@@ -2,13 +2,14 @@ package com.excalibur.followproject.view.novel;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class AutoAdjustTextView extends TextView {
+public class AutoAdjustTextView extends AppCompatTextView {
     private int mLineY = 0;//总行高
     private int mViewWidth;//TextView的总宽度
     private TextPaint paint;

@@ -35,6 +35,7 @@ import com.excalibur.followproject.fanye.Rotate3dAnimation;
 import com.excalibur.followproject.fanye.flip.FlipViewController;
 import com.excalibur.followproject.fanye.flip.Texture;
 import com.excalibur.followproject.view.FlipView;
+import com.excalibur.followproject.view.novel.AutoAdjustTextView;
 import com.excalibur.followproject.view.novel.AutoSplitTextView;
 
 import org.zackratos.ultimatebar.UltimateBar;
@@ -101,11 +102,14 @@ public class ReadActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             if(msg.what == 1){
                 autoSplitTextView.setContent(content,"",true);
+                autoAdjustTextView.setText(autoSplitTextView.getContent());
 //                handler.sendEmptyMessageDelayed(2,1000);
             }else if(msg.what == 2){
-                Bitmap foreImage = getScreenCapture(baseView);
-                autoSplitTextView.changePage(true);
-                Bitmap bgImage = getScreenCapture(baseView);
+//                Bitmap foreImage = getScreenCapture(baseView);
+//                autoSplitTextView.changePage(true);
+//                Bitmap bgImage = getScreenCapture(baseView);
+            }else if(msg.what == 3){
+                pageWidget.setVisibility(View.INVISIBLE);
             }
 
 //            Bitmap foreImage = getScreenCapture(baseView);
@@ -125,19 +129,23 @@ public class ReadActivity extends AppCompatActivity {
     private PageWidget mPageWidget;
     Bitmap mCurPageBitmap, mNextPageBitmap;
     View baseView;
+    TextView autoAdjustTextView;
 
-//    UltimateBar bar;
+    com.excalibur.followproject.PageWidget pageWidget;
+    UltimateBar bar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_read);
 
-//        bar = new UltimateBar(this);
-//        bar.setHintBar();
+        bar = new UltimateBar(this);
+        bar.setHintBar();
 
         baseView = findViewById(R.id.base_read);
         //mPageWidget = (PageWidget) findViewById(R.id.page);
         autoSplitTextView = (AutoSplitTextView) findViewById(R.id.base_read_autoSplit);
+        autoAdjustTextView = (TextView) findViewById(R.id.text);
+        pageWidget = (com.excalibur.followproject.PageWidget) findViewById(R.id.page);
 
         int width = getWindowManager().getDefaultDisplay().getWidth();
         int height = getWindowManager().getDefaultDisplay().getHeight();
@@ -176,9 +184,22 @@ public class ReadActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP){
-            Bitmap bitmap = getScreenCapture(baseView);
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            Bitmap bitmap = getScreenCapture(autoAdjustTextView);
             saveBitmap(bitmap);
+//            pageWidget.setVisibility(View.VISIBLE);
+//            Bitmap bitmap = getScreenCapture(baseView);
+//            pageWidget.setForeImage(bitmap);
+//            autoSplitTextView.changePage(true);
+//            autoAdjustTextView.setText(autoSplitTextView.getContent());
+//            Bitmap bitmap1 = getScreenCapture(baseView);
+//            pageWidget.setForeImage(bitmap1);
+        }
+        if(event.getAction() == MotionEvent.ACTION_UP){
+//            pageWidget.doAnim(true,(int)event.getX(),(int)event.getY());
+//            handler.sendEmptyMessageDelayed(3,1100);
+//            Bitmap bitmap = getScreenCapture(baseView);
+//            saveBitmap(bitmap);
 //            pageWidget.doAnim(true,(int)event.getX(),(int)event.getY());
         }
         return true;
