@@ -4,9 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -16,6 +19,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,17 +28,25 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.excalibur.PageContentController;
+import com.excalibur.followproject.BookPageFactory;
 import com.excalibur.followproject.R;
 import com.excalibur.followproject.fanye.PageWidget;
 import com.excalibur.followproject.fanye.Rotate3dAnimation;
 import com.excalibur.followproject.fanye.flip.FlipViewController;
 import com.excalibur.followproject.fanye.flip.Texture;
 import com.excalibur.followproject.view.FlipView;
+import com.excalibur.followproject.view.bookeffect.MagicBookView;
+import com.excalibur.followproject.view.bookeffect.PageContainer;
+import com.excalibur.followproject.view.crul.CurlActivity;
+import com.excalibur.followproject.view.crul.CurlPage;
+import com.excalibur.followproject.view.crul.CurlView;
 import com.excalibur.followproject.view.novel.AutoAdjustTextView;
 import com.excalibur.followproject.view.novel.AutoSplitTextView;
 
@@ -44,6 +56,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ReadActivity extends AppCompatActivity {
 
@@ -97,19 +112,40 @@ public class ReadActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private PageContentController controller;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
-                autoSplitTextView.setContent(content,"",true);
+                autoSplitTextView.setContent(content,"",true,0);
+                autoSplitTextView.setContent(content,"",true,-1);
+                autoSplitTextView.setContent(content,"",true,1);
+                autoSplitTextView.setOnContentOverListener(new AutoSplitTextView.OnContentOverListener() {
+                    @Override
+                    public void onContentOver(boolean isNext) {
+                        autoSplitTextView.setContent(content,"",isNext,isNext ? 1 : -1);
+                    }
+                });
                 autoAdjustTextView.setText(autoSplitTextView.getContent());
+//                mCurPageBitmap = getScreenCapture(baseView);
+//                mPageWidget.setBitmaps(mCurPageBitmap,mCurPageBitmap);
+                mCurlView.setPageProvider(new PageProvider());
+                mCurlView.setSizeChangedObserver(new SizeChangedObserver());
+//                mCurlView.setCurrentIndex(0);
+//                Bitmap bitmap = getScreenCapture(baseView);
+//                pageWidget.setForeImage(bitmap);
+//                autoSplitTextView.changePage(true);
+//                autoAdjustTextView.setText(autoSplitTextView.getContent());
+//                Bitmap bitmap1 = getScreenCapture(baseView);
+//                pageWidget.setBgImage(bitmap1);
 //                handler.sendEmptyMessageDelayed(2,1000);
             }else if(msg.what == 2){
 //                Bitmap foreImage = getScreenCapture(baseView);
 //                autoSplitTextView.changePage(true);
 //                Bitmap bgImage = getScreenCapture(baseView);
             }else if(msg.what == 3){
-                pageWidget.setVisibility(View.INVISIBLE);
+                //pageWidget.setVisibility(View.INVISIBLE);
             }
 
 //            Bitmap foreImage = getScreenCapture(baseView);
@@ -126,12 +162,17 @@ public class ReadActivity extends AppCompatActivity {
     };
 
     /** Called when the activity is first created. */
-    private PageWidget mPageWidget;
+//    private PageWidget mPageWidget;
     Bitmap mCurPageBitmap, mNextPageBitmap;
     View baseView;
     TextView autoAdjustTextView;
+//    ImageView image;
+    private CurlView mCurlView;
+    private BookPageFactory bookPageFactory;
+    private Canvas mCurPageCanvas;
+    private Canvas mNextPageCanvas;
 
-    com.excalibur.followproject.PageWidget pageWidget;
+//    com.excalibur.followproject.PageWidget pageWidget;
     UltimateBar bar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -142,24 +183,67 @@ public class ReadActivity extends AppCompatActivity {
         bar.setHintBar();
 
         baseView = findViewById(R.id.base_read);
-        //mPageWidget = (PageWidget) findViewById(R.id.page);
+//        mPageWidget = (PageWidget) findViewById(R.id.page);
         autoSplitTextView = (AutoSplitTextView) findViewById(R.id.base_read_autoSplit);
         autoAdjustTextView = (TextView) findViewById(R.id.text);
-        pageWidget = (com.excalibur.followproject.PageWidget) findViewById(R.id.page);
+//        pageWidget = (com.excalibur.followproject.PageWidget) findViewById(R.id.page);
+//        image = (ImageView) findViewById(R.id.image);
 
         int width = getWindowManager().getDefaultDisplay().getWidth();
         int height = getWindowManager().getDefaultDisplay().getHeight();
-        Log.e("TestForCase","screenWidth = " + width);
-        Log.e("TestForCase","screenHeight = " + height);
 
+//        int index = 0;
+//        if (getLastNonConfigurationInstance() != null) {
+//            index = (Integer) getLastNonConfigurationInstance();
+//        }
+        mCurlView = (CurlView) findViewById(R.id.curl);
 
-
+//        mCurPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//        mNextPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//        mPageWidget.setScreen(width,height);
+//
+//        mCurPageCanvas = new Canvas(mCurPageBitmap);
+//        mNextPageCanvas = new Canvas(mNextPageBitmap);
+//        bookPageFactory = new BookPageFactory(width, height);
+//
+//        mPageWidget.setBitmaps(mCurPageBitmap, mCurPageBitmap);
+//
+//        mPageWidget.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent e) {
+//                boolean ret;
+//                if (v == mPageWidget) {
+//                    if (e.getAction() == MotionEvent.ACTION_DOWN) {
+//                        mPageWidget.abortAnimation();
+//                        mPageWidget.calcCornerXY(e.getX(), e.getY());
+//                        Bitmap bitmap = getScreenCapture(baseView);
+//                        bookPageFactory.onDraw(mCurPageCanvas,bitmap);
+//                        autoSplitTextView.changePage(mPageWidget.DragToRight());
+//                        autoAdjustTextView.setText(autoSplitTextView.getContent());
+//                        Bitmap bitmap1 = getScreenCapture(baseView);
+//                        bookPageFactory.onDraw(mNextPageCanvas,bitmap1);
+//                        mPageWidget.setBitmaps(mCurPageBitmap, mNextPageBitmap);
+//                    }
+//                    ret = mPageWidget.doTouchEvent(e);
+//                    return ret;
+//                }
+//                return false;
+//            }
+//
+//        });
+//        int index = 0;
+//        if (getLastNonConfigurationInstance() != null) {
+//            index = (Integer) getLastNonConfigurationInstance();
+//        }
+//        mCurlView.setPageProvider(new PageProvider());
+//        mCurlView.setSizeChangedObserver(new SizeChangedObserver());
+//        mCurlView.setCurrentIndex(index);
 //
 //        mCurPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 //        mNextPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//        mPageWidget.setBitmaps(mCurPageBitmap, mCurPageBitmap);
+//        mPageWidget.setScreen(width,height);
 //
-
-
 //        mPageWidget.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent e) {
@@ -169,7 +253,8 @@ public class ReadActivity extends AppCompatActivity {
 //                        mPageWidget.abortAnimation();
 //                        mPageWidget.calcCornerXY(e.getX(), e.getY());
 //                        autoSplitTextView.changePage(mPageWidget.DragToRight());
-//                        mNextPageBitmap = getScreenCapture(autoSplitTextView);
+//                        autoAdjustTextView.setText(autoSplitTextView.getContent());
+//                        mNextPageBitmap = getScreenCapture(baseView);
 //                        mPageWidget.setBitmaps(mCurPageBitmap, mNextPageBitmap);
 //                    }
 //                    ret = mPageWidget.doTouchEvent(e);
@@ -182,48 +267,120 @@ public class ReadActivity extends AppCompatActivity {
         handler.sendEmptyMessageDelayed(1,1000);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
-            Bitmap bitmap = getScreenCapture(autoAdjustTextView);
-            saveBitmap(bitmap);
-//            pageWidget.setVisibility(View.VISIBLE);
-//            Bitmap bitmap = getScreenCapture(baseView);
-//            pageWidget.setForeImage(bitmap);
-//            autoSplitTextView.changePage(true);
-//            autoAdjustTextView.setText(autoSplitTextView.getContent());
-//            Bitmap bitmap1 = getScreenCapture(baseView);
-//            pageWidget.setForeImage(bitmap1);
-        }
-        if(event.getAction() == MotionEvent.ACTION_UP){
-//            pageWidget.doAnim(true,(int)event.getX(),(int)event.getY());
-//            handler.sendEmptyMessageDelayed(3,1100);
-//            Bitmap bitmap = getScreenCapture(baseView);
-//            saveBitmap(bitmap);
-//            pageWidget.doAnim(true,(int)event.getX(),(int)event.getY());
-        }
-        return true;
+    MagicBookView mBookView;
+    private void initBookMagicView(){
+        PageContainer.IPageContainer pre = new PageContainer.IPageContainer(){
+            @Override
+            public void onInit(int page, PageContainer container) {
+                container.setContent(baseView,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                //container.setBackgroundColor(Color.RED);
+                //mButton1.setText(""+page);
+                //container.setContent(mButton1, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
+            }
+
+            @Override
+            public void onTurnReload(boolean isTurnBack, int currentPage, int needReloadPage,
+                                     PageContainer container) {
+                autoSplitTextView.changePage(false);
+                autoAdjustTextView.setText(autoSplitTextView.getContent());
+            }
+
+            @Override
+            public void onSetPage(int page, PageContainer container) {
+
+            }
+
+        };
+
+        PageContainer.IPageContainer cur = new PageContainer.IPageContainer(){
+            @Override
+            public void onInit(int page, PageContainer container) {
+                container.setContent(baseView,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            }
+
+            @Override
+            public void onTurnReload(boolean isTurnBack, int currentPage, int needReloadPage,
+                                     PageContainer container) {
+//                autoSplitTextView.changePage(false);
+                autoAdjustTextView.setText(autoSplitTextView.getContent());
+            }
+
+            @Override
+            public void onSetPage(int page, PageContainer container) {
+
+            }
+
+        };
+
+        PageContainer.IPageContainer next = new PageContainer.IPageContainer(){
+
+            @Override
+            public void onInit(int page, PageContainer container) {
+                container.setContent(baseView,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            }
+
+            @Override
+            public void onTurnReload(boolean isTurnBack, int currentPage, int needReloadPage,
+                                     PageContainer container) {
+                autoSplitTextView.changePage(true);
+                autoAdjustTextView.setText(autoSplitTextView.getContent());
+            }
+
+            @Override
+            public void onSetPage(int page, PageContainer container) {
+
+            }
+
+        };
+
+        mBookView.initBookView(50, 0, pre, cur, next);
     }
 
-    private Bitmap getScreenCapture(View mLayoutSource){
-//        mLayoutSource.setDrawingCacheEnabled(true);
-//        Bitmap tBitmap = mLayoutSource.getDrawingCache();
-//        // 拷贝图片，否则在setDrawingCacheEnabled(false)以后该图片会被释放掉
-//        tBitmap = Bitmap.createBitmap(tBitmap);
-//        mLayoutSource.setDrawingCacheEnabled(false);
-//        if (tBitmap != null) {
-//            Toast.makeText(getApplicationContext(), "获取成功", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(getApplicationContext(), "获取失败", Toast.LENGTH_SHORT).show();
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        if(event.getAction() == MotionEvent.ACTION_DOWN){
+////            Bitmap bitmap = getScreenCapture(autoAdjustTextView);
+////            saveBitmap(bitmap);
+//            Bitmap bitmap = getScreenCapture(baseView);
+////            image.setImageBitmap(bitmap);
+//            //pageWidget.setForeImage(bitmap);
+//            //autoSplitTextView.changePage(true);
+//            //autoAdjustTextView.setText(autoSplitTextView.getContent());
+//            //Bitmap bitmap1 = getScreenCapture(baseView);
+//            //pageWidget.setBgImage(bitmap1);
+//            //pageWidget.setVisibility(View.VISIBLE);
 //        }
-//        return tBitmap;
-        View view = getWindow().getDecorView();
+//        if(event.getAction() == MotionEvent.ACTION_UP){
+//            //pageWidget.doAnim(true,(int)event.getX(),(int)event.getY());
+//            //handler.sendEmptyMessageDelayed(3,1100);
+////            Bitmap bitmap = getScreenCapture(baseView);
+////            saveBitmap(bitmap);
+////            pageWidget.doAnim(true,(int)event.getX(),(int)event.getY());
+//        }
+//        return true;
+//    }
 
-        //允许当前窗口保存缓存信息
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache();
+    private Bitmap getScreenCapture(View mLayoutSource){
 
-        //获取状态栏高度
+        mLayoutSource.setDrawingCacheEnabled(true);
+        Bitmap tBitmap = mLayoutSource.getDrawingCache();
+        // 拷贝图片，否则在setDrawingCacheEnabled(false)以后该图片会被释放掉
+        tBitmap = Bitmap.createBitmap(tBitmap);
+        saveBitmap(tBitmap);
+        mLayoutSource.setDrawingCacheEnabled(false);
+        if (tBitmap != null) {
+            //Toast.makeText(getApplicationContext(), "获取成功", Toast.LENGTH_SHORT).show();
+        } else {
+            //Toast.makeText(getApplicationContext(), "获取失败", Toast.LENGTH_SHORT).show();
+        }
+        return tBitmap;
+//        View view = getWindow().getDecorView();
+//
+//        //允许当前窗口保存缓存信息
+//        view.setDrawingCacheEnabled(true);
+//        view.buildDrawingCache();
+//
+//        //获取状态栏高度
 //        Rect rect = new Rect();
 //        view.getWindowVisibleDisplayFrame(rect);
 //        int statusBarHeight = rect.top;
@@ -235,15 +392,18 @@ public class ReadActivity extends AppCompatActivity {
 //        windowManager.getDefaultDisplay().getMetrics(outMetrics);
 //        int width = outMetrics.widthPixels;
 //        int height = outMetrics.heightPixels;
-
-        //去掉状态栏
-        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-
-        //销毁缓存信息
-        view.destroyDrawingCache();
-        view.setDrawingCacheEnabled(false);
-
-        return bitmap;
+//
+//        //去掉状态栏
+//        //去掉状态栏
+//        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache(), 0, statusBarHeight, width,
+//                height-statusBarHeight);
+//
+//
+//        //销毁缓存信息
+//        view.destroyDrawingCache();
+//        view.setDrawingCacheEnabled(false);
+//
+//        return bitmap;
     }
 
 //    @Override
@@ -296,6 +456,160 @@ public class ReadActivity extends AppCompatActivity {
 
 //    }
 
+    private int fI = 0;
+    /**
+     * Bitmap provider.
+     */
+    private class PageProvider implements CurlView.PageProvider {
+
+//        private int[] mBitmapIds = { R.mipmap.shijie, R.mipmap.shijie1,R.mipmap.shijie2,R.mipmap.shijie3,R.mipmap.shijie};
+//
+//        @Override
+//        public int getPageCount() {
+//            return 5;
+//        }
+//
+//        private Bitmap loadBitmap(int width, int height, int index) {
+//            Log.e("TestForCase","LoadBitmap For : " + index);
+//            Bitmap b = Bitmap.createBitmap(width, height,
+//                    Bitmap.Config.ARGB_8888);
+//            b.eraseColor(0xFFFFFFFF);
+//            Canvas c = new Canvas(b);
+//            Drawable d = getResources().getDrawable(mBitmapIds[index]);
+//
+//            int margin = 7;
+//            int border = 3;
+//            Rect r = new Rect(margin, margin, width - margin, height - margin);
+//
+//            int imageWidth = r.width() - (border * 2);
+//            int imageHeight = imageWidth * d.getIntrinsicHeight()
+//                    / d.getIntrinsicWidth();
+//            if (imageHeight > r.height() - (border * 2)) {
+//                imageHeight = r.height() - (border * 2);
+//                imageWidth = imageHeight * d.getIntrinsicWidth()
+//                        / d.getIntrinsicHeight();
+//            }
+//
+//            r.left += ((r.width() - imageWidth) / 2) - border;
+//            r.right = r.left + imageWidth + border + border;
+//            r.top += ((r.height() - imageHeight) / 2) - border;
+//            r.bottom = r.top + imageHeight + border + border;
+//
+//            Paint p = new Paint();
+//            p.setColor(0xFFC0C0C0);
+//            c.drawRect(r, p);
+//            r.left += border;
+//            r.right -= border;
+//            r.top += border;
+//            r.bottom -= border;
+//
+//            d.setBounds(r);
+//            d.draw(c);
+//
+//            return b;
+//        }
+//
+//        @Override
+//        public void updatePage(CurlPage page, int width, int height, int index) {
+//
+//            switch (index) {
+//                // First case is image on front side, solid colored back.
+//                case 0: {
+//                    Bitmap front = loadBitmap(width, height, 0);
+//                    page.setTexture(front, CurlPage.SIDE_FRONT);
+//                    page.setColor(Color.rgb(180, 180, 180), CurlPage.SIDE_BACK);
+//                    break;
+//                }
+//                // Second case is image on back side, solid colored front.
+//                case 1: {
+//                    Bitmap back = loadBitmap(width, height, 2);
+//                    page.setTexture(back, CurlPage.SIDE_BACK);
+//                    page.setColor(Color.rgb(127, 140, 180), CurlPage.SIDE_FRONT);
+//                    break;
+//                }
+//                // Third case is images on both sides.
+//                case 2: {
+//                    Bitmap front = loadBitmap(width, height, 1);
+//                    Bitmap back = loadBitmap(width, height, 3);
+//                    page.setTexture(front, CurlPage.SIDE_FRONT);
+//                    page.setTexture(back, CurlPage.SIDE_BACK);
+//                    break;
+//                }
+//                // Fourth case is images on both sides - plus they are blend against
+//                // separate colors.
+//                case 3: {
+//                    Bitmap front = loadBitmap(width, height, 2);
+//                    Bitmap back = loadBitmap(width, height, 1);
+//                    page.setTexture(front, CurlPage.SIDE_FRONT);
+//                    page.setTexture(back, CurlPage.SIDE_BACK);
+//                    page.setColor(Color.argb(127, 170, 130, 255),
+//                            CurlPage.SIDE_FRONT);
+//                    page.setColor(Color.rgb(255, 190, 150), CurlPage.SIDE_BACK);
+//                    break;
+//                }
+//                // Fifth case is same image is assigned to front and back. In this
+//                // scenario only one texture is used and shared for both sides.
+//                case 4:
+//                    Bitmap front = loadBitmap(width, height, 0);
+//                    page.setTexture(front, CurlPage.SIDE_BOTH);
+//                    page.setColor(Color.argb(127, 255, 255, 255),
+//                            CurlPage.SIDE_BACK);
+//                    break;
+//            }
+//        }
+
+        @Override
+        public int getPageCount() {
+            return 10;
+        }
+
+        private Bitmap loadBitmap(int index,int type) {
+            if(type == -1){
+                autoSplitTextView.changePage(false);
+                autoAdjustTextView.setText(autoSplitTextView.getContent());
+            }else if(type == 0){
+                autoAdjustTextView.setText(autoSplitTextView.getContent());
+            }else{
+                autoSplitTextView.changePage(true);
+                autoAdjustTextView.setText(autoSplitTextView.getContent());
+            }
+            return getScreenCapture(baseView);
+        }
+
+        @Override
+        public void updatePage(CurlPage page, int width, int height, int index) {
+            Bitmap front;
+            if(index < fI){
+                fI--;
+                front = loadBitmap(fI,-1);
+            }else if(index == fI){
+                front = loadBitmap(fI,0);
+            }else{
+                fI++;
+                front = loadBitmap(fI,1);
+            }
+            page.setTexture(front, CurlPage.SIDE_FRONT);
+            page.setColor(Color.rgb(180, 180, 180), CurlPage.SIDE_BACK);
+        }
+
+    }
+
+    /**
+     * CurlView size changed observer.
+     */
+    private class SizeChangedObserver implements CurlView.SizeChangedObserver {
+        @Override
+        public void onSizeChanged(int w, int h) {
+//            if (w > h) {
+//                mCurlView.setViewMode(CurlView.SHOW_TWO_PAGES);
+//                mCurlView.setMargins(.1f, .05f, .1f, .05f);
+//            } else {
+//                mCurlView.setViewMode(CurlView.SHOW_ONE_PAGE);
+//                mCurlView.setMargins(.1f, .1f, .1f, .1f);
+//            }
+        }
+    }
+
     class ReadHolder{
         AutoSplitTextView autoSplitTextView;
     }
@@ -303,9 +617,8 @@ public class ReadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("TestForCase","");
-        if(!TextUtils.isEmpty(autoSplitTextView.getContent()))
-            autoSplitTextView.setContent();
+//        if(!TextUtils.isEmpty(autoSplitTextView.getContent()))
+//            autoSplitTextView.setContent();
 //        bar.setHintBar();
         //autoSplitTextView.setCurrentPage();
 //        flipView.onResume();

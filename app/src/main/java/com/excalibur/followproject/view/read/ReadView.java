@@ -115,7 +115,7 @@ public class ReadView extends RelativeLayout {
 
     public void setContentString(String content,String title,boolean isNext){
         contentString = content;
-        simulationAutoSplitTextView.setContent(contentString,title,isNext);
+        simulationAutoSplitTextView.setContent(contentString,title,isNext,0);
         pageEnable = true;
         simulationLoading.setVisibility(GONE);
         mCurPageBitmap = getViewCapture(simulationLayout);

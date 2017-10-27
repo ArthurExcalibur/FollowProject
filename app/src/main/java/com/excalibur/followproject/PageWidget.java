@@ -20,7 +20,7 @@ import android.widget.Scroller;
 
 public class PageWidget extends View {
     private Bitmap foreImage;
-    private Bitmap bgImage;
+    //private Bitmap bgImage;
     private PointF touchPt;
     private int screenWidth;
     private int screenHeight;
@@ -88,13 +88,13 @@ public class PageWidget extends View {
         this.foreImage = foreImage;
     }
 
-    public Bitmap getBgImage() {
-        return bgImage;
-    }
+    //public Bitmap getBgImage() {
+    //    return bgImage;
+    //}
 
-    public void setBgImage(Bitmap bgImage) {
-        this.bgImage = bgImage;
-    }
+//    public void setBgImage(Bitmap bgImage) {
+//        this.bgImage = bgImage;
+//    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -124,14 +124,14 @@ public class PageWidget extends View {
         // TODO Auto-generated method stub
         Paint mPaint = new Paint();
 
-        if (bgImage!=null) {
-            canvas.save();
-
-            //只在与路径相交处画图
-            canvas.clipPath(path, Region.Op.INTERSECT);
-            canvas.drawBitmap(bgImage, 0, 0, mPaint);
-            canvas.restore();
-        }
+//        if (bgImage!=null) {
+//            canvas.save();
+//
+//            //只在与路径相交处画图
+//            canvas.clipPath(path, Region.Op.INTERSECT);
+//            canvas.drawBitmap(bgImage, 0, 0, mPaint);
+//            canvas.restore();
+//        }
     }
 
     /**
@@ -183,7 +183,7 @@ public class PageWidget extends View {
             bgPath.addRect(new RectF(halfCut,0,screenWidth,screenHeight), Path.Direction.CW);
 
             //对折出右侧画背景
-            drawBgImage(canvas,bgPath);
+            //drawBgImage(canvas,bgPath);
 
             //对折处画右侧阴影
             shadowDrawableLR.setBounds((int)halfCut, 0 ,(int)halfCut + 50, screenHeight);

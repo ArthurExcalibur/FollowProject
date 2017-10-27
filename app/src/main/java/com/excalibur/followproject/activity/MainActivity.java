@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
     private float size = 12;
     private void initViewAfterLoadData(String data){
-        autoAdjustTextView.setContent(content,"",true);
+        autoAdjustTextView.setContent(content,"",true,0);
         autoAdjustTextView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

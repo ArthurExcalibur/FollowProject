@@ -47,6 +47,10 @@ public class AutoSplitTextView extends FrameLayout{
         autoAdjustTextView = (AutoAdjustTextView) container.getChildAt(1);
 
         initSpaceString();
+
+        pageList = new ArrayList<>();
+        formerPageList = new ArrayList<>();
+        nextPageList = new ArrayList<>();
     }
 
     //根据页数计算当前页能容纳的最大行数
@@ -70,14 +74,14 @@ public class AutoSplitTextView extends FrameLayout{
     private String title;
     private String content;
     private List<String> pageList;
+    private List<String> formerPageList;
+    private List<String> nextPageList;
     private int currentPageNumber = 0;
 
     private StringBuilder contentBuilder;
     private StringBuilder lineBuilder;
-    private void autoSplitContent(boolean isNext){
+    private void autoSplitContent(boolean isNext,List<String> pageList){
         measureTextView.setText(content);
-        if(pageList == null)
-            pageList = new ArrayList<>();
         pageList.clear();
         if(contentBuilder == null)
             contentBuilder = new StringBuilder();
@@ -154,8 +158,14 @@ public class AutoSplitTextView extends FrameLayout{
         if(!TextUtils.isEmpty(contentBuilder)){
             pageList.add(contentBuilder.toString());
         }
-        currentPageNumber = isNext ? 0 : pageList.size() - 1;
-        autoAdjustTextView.setContent(pageList.get(currentPageNumber));
+        //currentPageNumber = isNext ? 0 : pageList.size() - 1;
+       // autoAdjustTextView.setContent(pageList.get(currentPageNumber));
+
+//        Log.e("TestForCase","-----------------------------------");
+//        for (int i = 0; i < pageList.size(); i++) {
+//            Log.e("TestForCase",pageList.get(i));
+//        }
+//        Log.e("TestForCase","-----------------------------------");
     }
 
     private String fillLineBuilder(int mWidth){
@@ -177,10 +187,15 @@ public class AutoSplitTextView extends FrameLayout{
      * @param title 章节标题
      * @param isNext 是否切换下一章
      */
-    public void setContent(String content,String title,boolean isNext){
+    public void setContent(String content,String title,boolean isNext,int type){
         this.content = content;
         this.title = title;
-        autoSplitContent(isNext);
+        if(type == 0)
+            autoSplitContent(isNext,pageList);
+        else if(type == -1)
+            autoSplitContent(isNext,formerPageList);
+        else if(type == 1)
+            autoSplitContent(isNext,nextPageList);
     }
 
     /**
@@ -218,7 +233,7 @@ public class AutoSplitTextView extends FrameLayout{
         measureTextView.getPaint().setTextSize(newTextSize);
         autoAdjustTextView.getPaint().setTextSize(newTextSize);
         int formerPage = currentPageNumber;
-        setContent(content,title,true);
+        setContent(content,title,true,0);
         currentPageNumber = formerPage <= pageList.size() - 1 ? formerPage : pageList.size() - 1;
         autoAdjustTextView.setContent(pageList.get(currentPageNumber));
     }
@@ -230,31 +245,68 @@ public class AutoSplitTextView extends FrameLayout{
     public String changePage(boolean isNext){
         if(isNext){
             if(currentPageNumber == pageList.size() - 1){
+                formerPageList.clear();
+                formerPageList.addAll(pageList);
+                pageList.clear();
+                pageList.addAll(nextPageList);
+                currentPageNumber = 0;
                 if(null != listener) {
                     listener.onContentOver(true);
                 }
+                Log.e("TestForCase","下一章第一页...");
+                return pageList.get(currentPageNumber);
             }
             else{
+                Log.e("TestForCase","本章节下一页...");
                 currentPageNumber++;
                 autoAdjustTextView.setContent(pageList.get(currentPageNumber));
                 return pageList.get(currentPageNumber);
             }
         }else{
             if(0 == currentPageNumber){
+                nextPageList.clear();
+                nextPageList.addAll(pageList);
+                pageList.clear();
+                pageList.addAll(formerPageList);
+                currentPageNumber = pageList.size() - 1;
                 if(null != listener) {
                     listener.onContentOver(false);
                 }
+                Log.e("TestForCase","上一章最后一页...");
+                return pageList.get(currentPageNumber);
             }else{
+                Log.e("TestForCase","本章上一页...");
                 currentPageNumber--;
                 autoAdjustTextView.setContent(pageList.get(currentPageNumber));
                 return pageList.get(currentPageNumber);
             }
         }
-        return null;
+    }
+
+    public void setCurrentPageNumber(int number){
+        if(number < 0){
+            currentPageNumber = 0;
+            return;
+        }
+        if(number >= pageList.size()){
+            currentPageNumber = pageList.size() - 1;
+            return;
+        }
+        currentPageNumber = number;
+    }
+
+    public String getContentByIndex(int index){
+        if(index < 0 || index > pageList.size() - 1)
+            return "无内容";
+        return pageList.get(index);
     }
 
     public int getCurrentPageNumber(){
         return currentPageNumber;
+    }
+
+    public List<String> getPageList(){
+        return pageList;
     }
 
     public void setContent(){

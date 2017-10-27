@@ -298,6 +298,7 @@ public class PageWidget extends View {
     public void setBitmaps(Bitmap bm1, Bitmap bm2) {
         mCurPageBitmap = bm1;
         mNextPageBitmap = bm2;
+        invalidate();
     }
 
     public void setScreen(int w, int h) {
@@ -307,7 +308,7 @@ public class PageWidget extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(0xFFAAAAAA);
+        canvas.drawColor(0xFFFFFFFF);
         calcPoints();
         drawCurrentPageArea(canvas, mCurPageBitmap, mPath0);
         drawNextPageAreaAndShadow(canvas, mNextPageBitmap);
