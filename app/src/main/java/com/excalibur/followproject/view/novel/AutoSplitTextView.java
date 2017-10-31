@@ -297,7 +297,7 @@ public class AutoSplitTextView extends FrameLayout{
 
     public String getContentByIndex(int index){
         if(index < 0 || index > pageList.size() - 1)
-            return "无内容";
+            return index % 2 == 0 ? pageList.get(0) : pageList.get(pageList.size() - 1);
         return pageList.get(index);
     }
 

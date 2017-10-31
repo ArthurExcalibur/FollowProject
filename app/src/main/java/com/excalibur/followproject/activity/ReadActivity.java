@@ -60,6 +60,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.excalibur.followproject.view.crul.CurlView.SHOW_ONE_PAGE;
+
 public class ReadActivity extends AppCompatActivity {
 
     protected FlipViewController flipView;
@@ -118,13 +120,13 @@ public class ReadActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
-                autoSplitTextView.setContent(content,"",true,0);
-                autoSplitTextView.setContent(content,"",true,-1);
-                autoSplitTextView.setContent(content,"",true,1);
+                autoSplitTextView.setContent(content + content,"",true,0);
+                autoSplitTextView.setContent(content + content,"",true,-1);
+                autoSplitTextView.setContent(content + content,"",true,1);
                 autoSplitTextView.setOnContentOverListener(new AutoSplitTextView.OnContentOverListener() {
                     @Override
                     public void onContentOver(boolean isNext) {
-                        autoSplitTextView.setContent(content,"",isNext,isNext ? 1 : -1);
+                        autoSplitTextView.setContent(content + content,"",isNext,isNext ? 1 : -1);
                     }
                 });
                 autoAdjustTextView.setText(autoSplitTextView.getContent());
@@ -197,6 +199,7 @@ public class ReadActivity extends AppCompatActivity {
 //            index = (Integer) getLastNonConfigurationInstance();
 //        }
         mCurlView = (CurlView) findViewById(R.id.curl);
+        mCurlView.setViewMode(SHOW_ONE_PAGE);
 
 //        mCurPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 //        mNextPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -466,7 +469,7 @@ public class ReadActivity extends AppCompatActivity {
 //
 //        @Override
 //        public int getPageCount() {
-//            return 5;
+//            return Integer.MAX_VALUE;
 //        }
 //
 //        private Bitmap loadBitmap(int width, int height, int index) {
@@ -475,7 +478,7 @@ public class ReadActivity extends AppCompatActivity {
 //                    Bitmap.Config.ARGB_8888);
 //            b.eraseColor(0xFFFFFFFF);
 //            Canvas c = new Canvas(b);
-//            Drawable d = getResources().getDrawable(mBitmapIds[index]);
+//            Drawable d = getResources().getDrawable(mBitmapIds[index % 5]);
 //
 //            int margin = 7;
 //            int border = 3;
@@ -512,7 +515,7 @@ public class ReadActivity extends AppCompatActivity {
 //        @Override
 //        public void updatePage(CurlPage page, int width, int height, int index) {
 //
-//            switch (index) {
+//            switch (index % 5) {
 //                // First case is image on front side, solid colored back.
 //                case 0: {
 //                    Bitmap front = loadBitmap(width, height, 0);
@@ -560,7 +563,7 @@ public class ReadActivity extends AppCompatActivity {
 
         @Override
         public int getPageCount() {
-            return 10;
+            return Integer.MAX_VALUE;
         }
 
         private Bitmap loadBitmap(int index,int type) {
@@ -573,6 +576,7 @@ public class ReadActivity extends AppCompatActivity {
                 autoSplitTextView.changePage(true);
                 autoAdjustTextView.setText(autoSplitTextView.getContent());
             }
+            autoAdjustTextView.setText(autoSplitTextView.getContentByIndex(index));
             return getScreenCapture(baseView);
         }
 
@@ -617,6 +621,7 @@ public class ReadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mCurlView.onResume();
 //        if(!TextUtils.isEmpty(autoSplitTextView.getContent()))
 //            autoSplitTextView.setContent();
 //        bar.setHintBar();
@@ -627,6 +632,7 @@ public class ReadActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        mCurlView.onPause();
 //        flipView.onPause();
     }
 }
