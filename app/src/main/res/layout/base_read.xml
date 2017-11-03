@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:layout_margin="10dp"
-            android:text="namenamename"/>
+            android:text="章节名称"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,15 +72,15 @@
             android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#2878DC"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#2878DC"/>-->
 
-    <com.excalibur.followproject.view.crul.CurlView
-        android:id="@+id/curl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <!--<com.excalibur.followproject.view.crul.CurlView-->
+        <!--android:id="@+id/curl"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
     <!--<com.excalibur.followproject.PageWidget-->
         <!--android:id="@+id/page"-->
