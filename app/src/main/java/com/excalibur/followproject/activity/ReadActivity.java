@@ -58,7 +58,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.concurrent.TimeUnit;
+
+import rx.Subscriber;
 
 import static com.excalibur.followproject.view.crul.CurlView.SHOW_ONE_PAGE;
 
@@ -305,21 +308,21 @@ public class ReadActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
-//                autoSplitTextView.setContent(content + content,"",true,0);
-                autoAdjustTextView.setText(content);
-//                autoSplitTextView.setContent(content + content,"",true,-1);
-//                autoSplitTextView.setContent(content + content,"",true,1);
-//                autoSplitTextView.setOnContentOverListener(new AutoSplitTextView.OnContentOverListener() {
-//                    @Override
-//                    public void onContentOver(boolean isNext) {
-//                        autoSplitTextView.setContent(content + content,"",isNext,isNext ? 1 : -1);
-//                    }
-//                });
-//                autoAdjustTextView.setText(autoSplitTextView.getContent());
-//                mCurPageBitmap = getScreenCapture(baseView);
+                autoSplitTextView.setContent(content + content,"",true,0);
+//                autoAdjustTextView.setText(content);
+//                autoSplitTextView.setContent(content,"",true,-1);
+//                autoSplitTextView.setContent(content,"",true,1);
+                autoSplitTextView.setOnContentOverListener(new AutoSplitTextView.OnContentOverListener() {
+                    @Override
+                    public void onContentOver(boolean isNext) {
+                        autoSplitTextView.setContent(content,"",isNext,isNext ? 1 : -1);
+                    }
+                });
+                autoAdjustTextView.setText(autoSplitTextView.getContent());
+                mCurPageBitmap = getScreenCapture(baseView);
 //                mPageWidget.setBitmaps(mCurPageBitmap,mCurPageBitmap);
-//                mCurlView.setPageProvider(new PageProvider());
-//                mCurlView.setSizeChangedObserver(new SizeChangedObserver());
+                mCurlView.setPageProvider(new PageProvider());
+                mCurlView.setSizeChangedObserver(new SizeChangedObserver());
 //                mCurlView.setCurrentIndex(0);
 //                Bitmap bitmap = getScreenCapture(baseView);
 //                pageWidget.setForeImage(bitmap);
@@ -370,7 +373,7 @@ public class ReadActivity extends AppCompatActivity {
         bar = new UltimateBar(this);
         bar.setHintBar();
 
-//        baseView = findViewById(R.id.base_read);
+        baseView = findViewById(R.id.base_read);
 //        mPageWidget = (PageWidget) findViewById(R.id.page);
         autoSplitTextView = (AutoSplitTextView) findViewById(R.id.base_read_autoSplit);
         autoAdjustTextView = (TextView) findViewById(R.id.text);
@@ -384,7 +387,7 @@ public class ReadActivity extends AppCompatActivity {
 //        if (getLastNonConfigurationInstance() != null) {
 //            index = (Integer) getLastNonConfigurationInstance();
 //        }
-//        mCurlView = (CurlView) findViewById(R.id.curl);
+        mCurlView = (CurlView) findViewById(R.id.curl);
 //        mCurlView.setViewMode(SHOW_ONE_PAGE);
 
 //        mCurPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -555,7 +558,7 @@ public class ReadActivity extends AppCompatActivity {
         Bitmap tBitmap = mLayoutSource.getDrawingCache();
         // 拷贝图片，否则在setDrawingCacheEnabled(false)以后该图片会被释放掉
         tBitmap = Bitmap.createBitmap(tBitmap);
-        saveBitmap(tBitmap);
+//        saveBitmap(tBitmap);
         mLayoutSource.setDrawingCacheEnabled(false);
         if (tBitmap != null) {
             //Toast.makeText(getApplicationContext(), "获取成功", Toast.LENGTH_SHORT).show();
@@ -753,6 +756,7 @@ public class ReadActivity extends AppCompatActivity {
         }
 
         private Bitmap loadBitmap(int index,int type) {
+            Log.e("TestForCase","loadBitmap:" + index);
             if(type == -1){
                 autoSplitTextView.changePage(false);
                 autoAdjustTextView.setText(autoSplitTextView.getContent());

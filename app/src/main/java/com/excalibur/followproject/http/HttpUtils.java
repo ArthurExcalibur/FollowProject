@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpUtils {
 
-    public static final String BASE_URL = "http://192.168.7.147:8080/";
+    public static final String BASE_URL = "http://116.196.91.63:8080/ZNovel/";
 
     public static OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder client = new OkHttpClient.Builder();

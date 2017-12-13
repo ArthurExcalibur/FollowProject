@@ -23,4 +23,12 @@
             <enum name="RGB_565" value="2"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="title_attrs">
+        <attr name="view_type" format="integer"/>
+        <attr name="title_name" format="string"/>
+        <attr name="wo_img" format="reference"/>
+        <attr name="sousuo_img" format="reference"/>
+        <attr name="fabu_img" format="reference"/>
+    </declare-styleable>
 </resources>

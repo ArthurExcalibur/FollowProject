@@ -1,0 +1,168 @@
+<RelativeLayout
+    android:id="@+id/title_rl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_dimen_96"
+    android:background="@color/colorPrimary">
+
+    <RelativeLayout
+        android:id="@+id/left_wo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/layout_dimen_30"
+        android:paddingRight="@dimen/layout_dimen_10">
+
+        <ImageView
+            android:id="@+id/wo_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher"/>
+
+        <ImageView
+            android:id="@+id/wo_hong_dian"
+            android:layout_width="@dimen/layout_dimen_10"
+            android:layout_height="@dimen/layout_dimen_10"
+            android:layout_marginLeft="@dimen/layout_dimen_5"
+            android:layout_marginTop="@dimen/layout_dimen_28"
+            android:layout_toRightOf="@id/wo_img"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true">
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/tiwen_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:thumb="@drawable/bg_tiwen_zhibo_btn"
+            android:visibility="gone"
+            app:track="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_38"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/sousuo_ll"
+            android:layout_width="@dimen/layout_dimen_500"
+            android:layout_height="@dimen/layout_dimen_70"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/ic_launcher"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/layout_dimen_16"
+            android:paddingRight="@dimen/layout_dimen_16"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/layout_dimen_36"
+                android:layout_height="@dimen/layout_dimen_39"
+                android:src="@mipmap/ic_launcher"/>
+
+
+            <com.lieniu.css.view.ContainsEmojiEditText
+                android:id="@+id/sousuo_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/layout_dimen_20"
+                android:background="@null"
+                android:hint="请输入关键字"
+                android:singleLine="true"
+                android:textColor="@color/color1a1a1a"
+                android:textColorHint="#797979"
+                android:textCursorDrawable="@drawable/zhi_bo_fa_yan_guang_biao"
+                android:textSize="@dimen/text_30"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/right_sousu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="@dimen/layout_dimen_20"
+        android:paddingRight="@dimen/layout_dimen_30"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/sousuo_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/right_fabu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/right_sousu"
+        android:paddingLeft="@dimen/layout_dimen_30"
+        android:paddingRight="@dimen/layout_dimen_15"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/fabu_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tijiao"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/layout_dimen_52"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/layout_dimen_30"
+        android:background="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:paddingLeft="@dimen/layout_dimen_20"
+        android:paddingRight="@dimen/layout_dimen_20"
+        android:text="提交"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_28"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/sousuo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingRight="@dimen/layout_dimen_30"
+        android:text="完成"
+        android:textColor="#da251d"
+        android:textSize="@dimen/text_30"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/rili"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingRight="@dimen/layout_dimen_30"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_28"
+        android:visibility="gone"/>
+</RelativeLayout>

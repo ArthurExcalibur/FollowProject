@@ -2,12 +2,9 @@ package com.excalibur.followproject.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -17,9 +14,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 
-
 import java.io.File;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/2 0002.
@@ -32,98 +27,111 @@ public class CameraUtils {
     public File FromCamera(Activity activity, int requestCode) {
         String url = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/DCIM/";
         String path1 = url + AllUtils.getUUID() + ".jpg";
-        File newFile = new File(path1);
-
-
-      /*  File imagePath = new File(Environment.getExternalStorageDirectory(), "images");
-        if (!imagePath.exists()) imagePath.mkdirs();
-        File newFile = new File(imagePath, "default_image.jpg");*/
-
-        //第二参数是在manifest.xml定义 provider的authorities属性
-        Uri contentUri = FileProvider.getUriForFile(activity, "com.css.wgb.wengubaoforandroid.fileprovider", newFile);
-
+        File file = new File(path1);
+        Uri uri = getUriForFile(activity, file);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //兼容版本处理，因为 intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION) 只在5.0以上的版本有效
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            ClipData clip =
-                    ClipData.newUri(activity.getContentResolver(), "A photo", contentUri);
-            intent.setClipData(clip);
-            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        } else {
-            List<ResolveInfo> resInfoList =
-                    activity.getPackageManager()
-                            .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-            for (ResolveInfo resolveInfo : resInfoList) {
-                String packageName = resolveInfo.activityInfo.packageName;
-                activity.grantUriPermission(packageName, contentUri,
-                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            }
-        }
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+        intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         activity.startActivityForResult(intent, requestCode);
-        return newFile;
+        return file;
     }
 
-
-
     /**
-     * 打开相机
-     * 兼容7.0
-     *
-     * @param activity    Activity
-     * @param requestCode result requestCode
+     * 从相机中选择
      */
-    public static void startActionCapture(Activity activity,File file,int requestCode) {
-        if (activity == null) {
-            return;
-        }
+    public File FromCamera(Fragment activity, int requestCode) {
+        String url = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/DCIM/";
+        String path1 = url + AllUtils.getUUID() + ".jpg";
+        File file = new File(path1);
+        Uri uri = getUriForFile(activity.getActivity(), file);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(activity, file));
+        intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         activity.startActivityForResult(intent, requestCode);
+        return file;
     }
 
     /**
      * 从图库中选择
      */
-    public void FromPhoto(Activity activity, int requestCode) {
-        Intent i = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        activity.startActivityForResult(i, requestCode);
+	/*public void FromPhoto(Activity activity, int requestCode) {
+		Intent i = new Intent(Intent.ACTION_PICK,
+				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		activity.startActivityForResult(i, requestCode);
+	}*/
+
+/*
+	public void FromPhoto(Fragment activity, int requestCode) {
+		Intent i = new Intent(Intent.ACTION_PICK,
+				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		activity.startActivityForResult(i, requestCode);
+	}
+*/
+
+    /**
+     * 从图库中选择
+     */
+    public void FromPhoto(Activity activity, int requestCode, int maxNum) {
+        boolean showCamera = false;
+//        int selectedMode = MultiImageSelectorActivity.MODE_MULTI;
+//        int cutMode = MultiImageSelectorActivity.MODE_CUT_NORMAL;
+//
+//        Intent intent = new Intent(activity, MultiImageSelectorActivity.class);
+//        // 是否显示拍摄图片
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, showCamera);
+//        // 最大可选择图片数量
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, maxNum);
+//        // 选择模式
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, selectedMode);
+//        // 是否裁剪
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_CUT_MODE, cutMode);
+//        String path = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/DCIM/";
+//        // 剪切保存的路径
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_CUT_PATH, path);
+////				// 默认选择
+////				if (mSelectPath != null && mSelectPath.size() > 0) {
+////					intent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, mSelectPath);
+////				}
+//        activity.startActivityForResult(intent, requestCode);
     }
 
-    public void FromPhoto(Fragment activity, int requestCode) {
-        Intent i = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        activity.startActivityForResult(i, requestCode);
+    /**
+     * 从图库中选择
+     */
+    public void FromPhoto(Fragment activity, int requestCode, int maxNum) {
+        boolean showCamera = false;
+//        int selectedMode = MultiImageSelectorActivity.MODE_MULTI;
+//        int cutMode = MultiImageSelectorActivity.MODE_CUT_NORMAL;
+//
+//        Intent intent = new Intent(activity.getActivity(), MultiImageSelectorActivity.class);
+//        // 是否显示拍摄图片
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, showCamera);
+//        // 最大可选择图片数量
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, maxNum);
+//        // 选择模式
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, selectedMode);
+//        // 是否裁剪
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_CUT_MODE, cutMode);
+//        String path = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/DCIM/";
+//        // 剪切保存的路径
+//        intent.putExtra(MultiImageSelectorActivity.EXTRA_CUT_PATH, path);
+//				// 默认选择
+//				if (mSelectPath != null && mSelectPath.size() > 0) {
+//					intent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, mSelectPath);
+//				}
+//        activity.startActivityForResult(intent, requestCode);
     }
-
 
     /**
      * 从相机中选择图片返回结果
      */
-    public static String FromCameraResult(Intent data, Context context,
-                                          File file) {
-//        try {
-//            if (file != null) {
-//                Uri u = Uri.parse(MediaStore.Images.Media
-//                        .insertImage(context.getContentResolver(),
-//                                file.getAbsolutePath(), null, null));
-//                return getPathFromUri(context, u);
-//            }
-//        } catch (Exception e) {
-//            return null;
-//        }
+    public static String FromCameraResult(Intent data, Context context, File file) {
         try {
             if (file != null) {
-                Uri u = Uri.parse(MediaStore.Images.Media
+                Uri u = Uri.parse(android.provider.MediaStore.Images.Media
                         .insertImage(context.getContentResolver(),
                                 file.getAbsolutePath(), null, null));
-                String url = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/DCIM/";
-                String filepath = url + AllUtils.getUUID() + ".jpg";
                 String path = getRealPathFromUri(context, u);
-//                NativeUtil.compressBitmap(NativeUtil.getBitmapFromFile(path), filepath);
                 return path;
             }
         } catch (Exception e) {
@@ -147,11 +155,21 @@ public class CameraUtils {
         if (photoUri == null) {
             return null;
         }
-        String url = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/DCIM/";
-        String filepath = url + AllUtils.getUUID() + ".jpg";
         String path = getRealPathFromUri(context, photoUri);
-//        NativeUtil.compressBitmap(NativeUtil.getBitmapFromFile(path), filepath);
         return path;
+    }
+
+    public static Uri getUriForFile(Context context, File file) {
+        if (context == null || file == null) {
+            throw new NullPointerException();
+        }
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(context, "com.lieniu.css.fileprovider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+        return uri;
     }
 
     public static String getRealPathFromUri(Context context, Uri uri) {
@@ -247,39 +265,5 @@ public class CameraUtils {
     private static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
-
-    /**
-     * 通过Uri获取图库中的路径
-     *
-     * @param context
-     * @param u
-     * @return
-     */
-    public static String getPathFromUri(Context context, Uri u) {
-        String[] pojo = {MediaStore.Images.Media.DATA};
-        Cursor cursor = context.getContentResolver().query(u, pojo, null, null,
-                null);
-        String picPath = null;
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(pojo[0]);
-            cursor.moveToFirst();
-            picPath = cursor.getString(columnIndex);
-            return picPath;
-        }
-        return null;
-    }
-
-    public static Uri getUriForFile(Context context, File file) {
-        if (context == null || file == null) {
-            throw new NullPointerException();
-        }
-        Uri uri;
-        if (Build.VERSION.SDK_INT >= 24) {
-            uri = FileProvider.getUriForFile(context.getApplicationContext(), "com.css.wgb.wengubaoforandroid.fileprovider", file);
-        } else {
-            uri = Uri.fromFile(file);
-        }
-        return uri;
-    }
-
 }
+
